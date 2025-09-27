@@ -72,6 +72,7 @@ defmodule XlsxReader.PackageLoader do
   def load_sheet_by_rid(package, rid, options \\ []) do
     case fetch_rel_target(package.workbook.rels, :sheets, rid) do
       {:ok, target} ->
+        target = String.trim_leading(target, "/xl")
         load_worksheet_xml(package, xl_path(target), options)
 
       :error ->
